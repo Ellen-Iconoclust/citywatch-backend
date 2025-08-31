@@ -1,0 +1,21 @@
+# backend/render.yaml
+services:
+  - type: web
+    name: citywatch-backend
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: FLASK_ENV
+        value: production
+      - key: PYTHON_VERSION
+        value: 3.9.0
+
+  # Optional: Add a PostgreSQL database (remove if not needed)
+  - type: pg
+    name: citywatch-db
+    plan: free
+    ipAllowList: []  # Only accessible from Render services
